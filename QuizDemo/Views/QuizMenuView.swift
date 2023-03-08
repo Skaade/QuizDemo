@@ -13,14 +13,35 @@ struct QuizMenuView: View {
     
     @State private var selectedOption = 0
     
+    enum Difficulty: String, CaseIterable {
+        case easy = "easy"
+        case medium = "medium"
+        case hard = "hard"
+    }
+    
+    @State private var selectedDifficulty = Difficulty.easy
+    
     var body: some View {
         Form{
             Section{
-                Picker("Select an categorie",selection: $selectedOption) {
+                Picker("Select an categorie:",selection: $selectedOption) {
                     ForEach(quizController.categories) { cate in
                         Text(cate.name)
                     }
                 }
+                .pickerStyle(.menu)
+
+                HStack{
+                    Text("Difficulty:")
+                    Picker("Select a Difficulty", selection: $selectedDifficulty) {
+                                    ForEach(Difficulty.allCases, id: \.self) { difficulty in
+                                        Text(difficulty.rawValue)
+                                    }
+                                }
+                                .pickerStyle(.segmented)
+                                .padding(.horizontal)
+                }
+                
             }
         }
     }
