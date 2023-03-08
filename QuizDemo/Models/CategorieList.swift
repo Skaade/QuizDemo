@@ -8,7 +8,7 @@
 import Foundation
 
 struct CategorieList: Codable{
-    let results: [Categorie]
+    let results: [Category]
     
     enum CodingKeys: String, CodingKey {
             case results = "trivia_categories"
